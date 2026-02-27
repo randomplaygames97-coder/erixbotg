@@ -11,7 +11,7 @@ ADMIN_IDS = [
 ]
 
 # ID del proprietario/super admin (ha accesso a tutte le funzionalità)
-SUPER_ADMIN_ID = None  # Inserisci il tuo ID qui
+SUPER_ADMIN_ID = 691735614
 
 
 def is_admin(telegram_id: int) -> bool:
