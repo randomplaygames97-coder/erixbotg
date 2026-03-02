@@ -1,5 +1,11 @@
 # Dipendenze Python per il Bot IPTV Telegram
 
+python-telegram-bot[job-queue]>=20.0
+aiosqlite  # forse lo toglieremo, ma per ora lascia
+python-dotenv
+loguru
+asyncpg>=0.29.0  # driver PostgreSQL asincrono
+
 # Bot Telegram
 python-telegram-bot>=20.0
 APScheduler>=3.10.0
