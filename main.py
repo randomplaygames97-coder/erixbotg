@@ -2,6 +2,43 @@
 Entry point bot IPTV Telegram.
 """
 
+import os
+import asyncio
+from dotenv import load_dotenv
+from telegram.ext import Application
+
+load_dotenv()
+
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # opzionale
+PORT = int(os.getenv("PORT", 8080))      # Koyeb assegna la porta 8080
+
+async def main():
+    # Costruisci l'applicazione (importa i tuoi handler)
+    application = Application.builder().token(TOKEN).build()
+
+    # Aggiungi qui i tuoi handler (es. da handlers/)
+    # ...
+
+    if WEBHOOK_URL:
+        # Modalità webhook per produzione
+        await application.bot.set_webhook(url=f"{WEBHOOK_URL}/webhook")
+        print(f"Webhook impostato a {WEBHOOK_URL}/webhook")
+        # Avvia il webhook server
+        await application.run_webhook(
+            listen="0.0.0.0",
+            port=PORT,
+            webhook_url=f"{WEBHOOK_URL}/webhook",
+            secret_token=os.getenv("WEBHOOK_SECRET", None)  # opzionale
+        )
+    else:
+        # Modalità polling per sviluppo locale
+        print("Avvio in modalità polling...")
+        await application.run_polling()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
 from __future__ import annotations
 
 import logging
